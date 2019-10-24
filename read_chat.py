@@ -41,9 +41,12 @@ def write_message_to_file(history, message):
 
 
 async def get_data_from_server(host, port):
-    reader, _ = await asyncio.open_connection(host, port)
-    data = await asyncio.wait_for(reader.readline(), timeout=5)
-    return data
+    try:
+        reader, writer = await asyncio.open_connection(host, port)
+        data = await asyncio.wait_for(reader.readline(), timeout=5)
+        return data
+    finally:
+        writer.close()
 
 
 async def count_reconnection_delay(connection_attempts):
