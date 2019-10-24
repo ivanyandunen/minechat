@@ -2,3 +2,5 @@
 venv/
 .vscode/
 .DS_Store
+history.txt
+__pycache__
